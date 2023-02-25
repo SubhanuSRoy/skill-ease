@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import SE_Logo from "../../assets/images/SkillEase_logo.png";
 import { authActions } from "../../features/auth/auth-slice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const dispatch = useDispatch();
@@ -56,12 +56,12 @@ function Login() {
             <div className="text-center">
               <p className="">
                 Don't have an account?{" "}
-                <a
-                  href="javascript:void(0)"
+                <Link
+                  to="/register"
                   className="font-medium text-primary hover:text-primary"
                 >
                   Sign Up
-                </a>
+                </Link>
               </p>
             </div>
           </form>
