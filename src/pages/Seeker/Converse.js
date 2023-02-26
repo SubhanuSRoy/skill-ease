@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -15,6 +16,8 @@ function Converse() {
   } = useSpeechRecognition();
 
   const [searchQuery, setSearchQuery] = useState(null);
+  const [AIResponse, setAIResponse] = useState(null);
+  const [loading, setloading] = useState(false);
 
   const listen = () => {
     resetTranscript();
@@ -23,9 +26,25 @@ function Converse() {
   };
   const updateQuery = () => {
     SpeechRecognition.stopListening();
-    setSearchQuery(transcript);
+    // setSearchQuery(transcript);
   };
 
+  const getRes = async (e) => {
+    e.preventDefault();
+    setloading(true);
+    console.log(searchQuery)
+    axios
+      .post(process.env.REACT_APP_AI_SERVER + "get_chat", {
+        Question: searchQuery,
+      })
+      .then((res) => {
+        console.log(res.data);
+        // setAIResponse(res.data.)
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   const data = {
     jobs: [
       {
@@ -58,7 +77,7 @@ function Converse() {
     mentors: [
       {
         mentor_name: "Jonathan Watson",
-        quali: ["Btech", "MTech"],
+        quali: "Btech",
         tags: ["software", "backend"],
         img: "https://drive.google.com/file/d/1fkR0HV1uPCTEKos7I4QpJG7zwVVK5S0l/view?usp=sharing",
       },
@@ -71,8 +90,8 @@ function Converse() {
     ],
   };
   return (
-    <div className="p-4 flex flex-col items-center">
-      <div className="flex items-center gap-8 ">
+    <div className="p-4 flex flex-col items-center h-screen">
+      {/* <div className="flex items-center gap-8 ">
         <div className="flex flex-col items-center gap-4 border-2 border-gray-500 rounded-md p-4">
           <h1 className="text-gray-50">Jobs</h1>
           {data.jobs.map((job) => {
@@ -112,10 +131,12 @@ function Converse() {
             );
           })}
         </div>
-      </div>
+      </div> */}
+      <div></div>
+      {/* input */}
       <div className="fixed bottom-8 w-3/4">
-        <form class="w-full">
-          <div class="relative flex items-center">
+        <form class="w-full flex items-center gap-4">
+          <div class="relative flex items-center flex-grow">
             <input
               class="h-20 w-full rounded-lg border-gray-200 pl-8 pr-10 text-gray-300 text-lg outline-none bg-midnight placeholder-gray-300 focus:z-10"
               placeholder="Computer jobs in India..."
@@ -173,6 +194,25 @@ function Converse() {
               </button>
             )}
           </div>
+          <button
+            className="bg-primary p-4 h-16 rounded-md text-center"
+            onClick={getRes}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              class="w-8 h-8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+              />
+            </svg>
+          </button>
         </form>
       </div>
     </div>
