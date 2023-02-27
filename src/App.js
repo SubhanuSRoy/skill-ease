@@ -5,11 +5,12 @@ import Layout from "./components/Layout/Layout";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
-import Conversation from "./pages/Seeker/Conversation";
-// import Conversation from "./pages/Seeker/Conversation";
+import Conversation from "./pages/Seeker/Recommend";
+
 import Converse from "./pages/Seeker/Converse";
 import Course from "./pages/Seeker/Course";
 import JobsList from "./pages/Seeker/JobsList";
+import Recommend from "./pages/Seeker/Recommend";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -30,6 +31,14 @@ function App() {
             element={
               <Layout>
                 <Converse />
+              </Layout>
+            }
+          />
+          <Route
+            path="/recommend"
+            element={
+              <Layout>
+                <Recommend />
               </Layout>
             }
           />

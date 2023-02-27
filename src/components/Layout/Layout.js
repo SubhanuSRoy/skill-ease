@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../features/auth/auth-slice";
 import SE_Logo from "../../assets/images/SkillEase_logo.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Layout({ children }) {
   const dispatch = useDispatch();
@@ -26,63 +26,40 @@ function Layout({ children }) {
             </div>
 
             <div class="md:flex md:items-center md:gap-12">
-              {/* <nav aria-label="Site Nav" class="hidden md:block">
+              <nav aria-label="Site Nav" class="hidden md:block">
                 <ul class="flex items-center gap-6 text-sm">
                   <li>
-                    <a
+                    <Link
                       class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
+                      to="/chat"
+                      
                     >
-                      About
-                    </a>
+                      Ask AI
+                    </Link>
                   </li>
-
+                  <li>
+                    <Link
+                      class="text-gray-500 transition hover:text-gray-500/75"
+                      to="/recommend"
+                      
+                    >
+                      Get Course Recommendations
+                    </Link>
+                  </li>
                   <li>
                     <a
                       class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
+                      rel="norefferer"
+                      target="_blank"
+                      href="https://chethanreddy123-video-transcription-skillathon-main-ny8iuy.streamlit.app/"
                     >
-                      Careers
+                      Translate Course Video
                     </a>
                   </li>
 
-                  <li>
-                    <a
-                      class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
-                    >
-                      History
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
-                    >
-                      Services
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
-                    >
-                      Projects
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      class="text-gray-500 transition hover:text-gray-500/75"
-                      href="/"
-                    >
-                      Blog
-                    </a>
-                  </li>
+                  
                 </ul>
-              </nav> */}
+              </nav>
 
               <div class="flex items-center gap-4">
                 <h1 className="text-gray-50 text-lg">{userName}</h1>

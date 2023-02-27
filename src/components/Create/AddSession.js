@@ -70,7 +70,7 @@ function AddSession() {
     e.preventDefault();
 
     axios
-      .post(process.env.REACT_APP_BACKEND_SERVER + "update/mentor", {
+      .patch(process.env.REACT_APP_BACKEND_SERVER + "update/mentor", {
         email: email,
         name: mentor_name,
         profile_photo_link:pfpUrl,
@@ -94,7 +94,7 @@ function AddSession() {
     e.preventDefault();
 
     axios
-      .post(process.env.REACT_APP_BACKEND_SERVER + "creator/session", {
+      .patch(process.env.REACT_APP_BACKEND_SERVER + "creator/session", {
         email: email,
         date: date,
         time: time,
