@@ -8,6 +8,7 @@ const authSlice = createSlice({
     email: null,
     password: null,
     userName: null,
+    pfp_link:null,
   },
   reducers: {
     register(state, action) {
@@ -15,12 +16,24 @@ const authSlice = createSlice({
       state.email = action.payload.userEmail;
       state.password = action.payload.userPassword;
       state.userName = action.payload.userName;
+      state.userType = action.payload.userType;
+      state.pfp_link = action.payload.pfp_link
     },
-    login(state) {
+    login(state,action) {
       state.isLoggedIn = true;
+      state.email = action.payload.userEmail;
+      state.password = action.payload.userPassword;
+      state.userName = action.payload.userName;
+      state.userType = action.payload.userType;
+      state.pfp_link = action.payload.pfp_link
     },
     logout(state) {
       state.isLoggedIn = false;
+      state.email = null
+      state.password = null
+      state.userName = null
+      state.userType = null
+      state.pfp_link = null
     },
     setUserType(state, action) {
       state.userType = action.payload;
