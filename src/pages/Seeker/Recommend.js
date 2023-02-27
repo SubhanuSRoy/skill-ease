@@ -114,50 +114,24 @@ function Recommend() {
   };
 
   return (
-    <div className="p-4 flex flex-col items-center min-h-screen ">
-      {courseList.length > 0 && (
-        <div className="flex items-center gap-8 ">
-          {/* <div className="flex flex-col items-center gap-4 border-2 border-gray-500 rounded-md p-4">
-            <h1 className="text-gray-50">Jobs</h1>
-            {data.jobs.map((job) => {
-              return (
-                <Jobs
-                  logo={job.logo}
-                  role={job.role}
-                  company={job.company}
-                  salary={job.salary}
-                />
-              );
-            })}
-          </div> */}
-          <div className="flex flex-col gap-4 items-center border-2 border-gray-500 rounded-md p-4">
-            <h1 className="text-gray-50">Courses</h1>
+    <div className="p-4 flex  items-center min-h-screen justify-center">
+      <div className="flex flex-col items-center justify-center gap-4 w-full ">
+        <h1 className="text-gray-50">Courses</h1>
+        {courseList.length > 0 && (
+          <div className="flex flex-wrap gap-4 items-center justify-center rounded-md p-4">
             {courseList.map((course) => {
               return (
                 <Courses
                   title={course.course_title}
-                  cert = {course.course_Certificate_type}
-                  difficulty = {course.course_difficulty}
-                  rating = {course.course_rating}
+                  cert={course.course_Certificate_type}
+                  difficulty={course.course_difficulty}
+                  rating={course.course_rating}
                 />
               );
             })}
           </div>
-          {/* <div className="flex flex-col gap-4 items-center border-2 border-gray-500 rounded-md p-4">
-            <h1 className="text-gray-50">Mentors</h1>
-            {data.mentors.map((mentor) => {
-              return (
-                <Mentors
-                  imgUrl={mentor.img}
-                  name={mentor.mentor_name}
-                  quali={mentor.quali}
-                  tags={mentor.tags}
-                />
-              );
-            })}
-          </div> */}
-        </div>
-      )}
+        )}
+      </div>
 
       {/* chat */}
       {/* <div class="flex flex-col w-3/4 bg-transparent h-3/4 shadow-xl rounded-lg overflow-auto">
