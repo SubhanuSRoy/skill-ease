@@ -114,9 +114,9 @@ function Recommend() {
   };
 
   return (
-    <div className="p-4 flex  items-center min-h-screen justify-center">
+    <div className="p-4 flex flex-col items-center min-h-screen ">
       <div className="flex flex-col items-center justify-center gap-4 w-full ">
-        <h1 className="text-gray-50">Courses</h1>
+        <h1 className="text-gray-50">Courses Recommendation</h1>
         {courseList.length > 0 && (
           <div className="flex flex-wrap gap-4 items-center justify-center rounded-md p-4">
             {courseList.map((course) => {
