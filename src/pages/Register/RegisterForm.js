@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../features/auth/auth-slice";
 import SE_logo from "../../assets/images/SkillEase_logo.png";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function RegisterForm() {
   const dispatch = useDispatch();
@@ -24,33 +24,47 @@ function RegisterForm() {
     window.location.reload(true);
   };
 
+  const navigate = useNavigate();
   const registerAccount = async (e) => {
     e.preventDefault();
+    console.log(process.env.REACT_APP_BACKEND_SERVER);
     if (userType == "Seeker") {
+      console.log("This is a " + userType);
       axios
         .post(process.env.REACT_APP_BACKEND_SERVER + "signup/user", {
-          first_name: name,
-          last_name: name,
-          email: email,
-          password: password,
+          first_name: userName,
+          last_name: userName,
+          email: userEmail,
+          password: userPassword,
           creator: "no",
           user_attributes: [],
           registered_courses: [],
         })
         .then((res) => {
           console.log(res);
+          dispatch(
+            authActions.register({
+              userEmail: userEmail,
+              userPassword: userPassword,
+              userName: userName,
+              userPfp_Link: userPfp_Link,
+              userType: "Seeker",
+            })
+          );
+
+          navigate("/chat");
         })
         .catch((error) => {
           console.log(error.message);
         });
     } else if (userType == "Contributor") {
-      console.log(userType);
+      console.log("This is a " + userType);
       axios
         .post(process.env.REACT_APP_BACKEND_SERVER + "signup/creator", {
-          name: name,
-          email: email,
-          password: password,
-          profile_photo_link: pfp_link,
+          name: userName,
+          email: userEmail,
+          password: userPassword,
+          profile_photo_link: userPfp_Link,
           discription: "",
           qualifications: "",
           creator: "yes",
@@ -61,6 +75,17 @@ function RegisterForm() {
         })
         .then((res) => {
           console.log(res);
+          dispatch(
+            authActions.register({
+              userEmail: userEmail,
+              userPassword: userPassword,
+              userName: userName,
+              userPfp_Link: userPfp_Link,
+              userType: "Contributor",
+            })
+          );
+
+          navigate("/dashboard");
         })
         .catch((error) => {
           console.log(error.message);
@@ -167,7 +192,7 @@ function RegisterForm() {
             <p className="">
               Already have an account?{" "}
               <Link
-                to="/login"
+                to="/"
                 className="font-medium text-primary hover:text-primary"
               >
                 Login

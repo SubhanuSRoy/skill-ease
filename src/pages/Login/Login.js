@@ -1,18 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import SE_Logo from "../../assets/images/SkillEase_logo.png";
 import { authActions } from "../../features/auth/auth-slice";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userType = useSelector((state) => state.auth.userType);
 
-  const navigate = useNavigate()
-  const loginUser = () => {
-    dispatch(authActions.login)
-    navigate("/chat")
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const navigate = useNavigate();
+  const loginUser = async (e) => {
+    e.preventDefault();
+
+    // console.log("This is a " + userType);
+    axios
+      .post(process.env.REACT_APP_BACKEND_SERVER + "get_user", {
+        email: email,
+      })
+      .then((res) => {
+        console.log(res);
+        // dispatch(
+        //   authActions.login({
+        //     userEmail: email,
+        //     userPassword: userPassword,
+        //     userName: userName,
+        //     userPfp_Link: userPfp_Link,
+        //     userType: "Seeker",
+        //   })
+        // );
+
+        navigate("/chat");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+
+    
   };
   return (
     <div className="relative h-screen flex flex-col items-center justify-center gap-8 pt-4 bg-dark">
@@ -32,12 +61,16 @@ function Login() {
               </h3>
             </div>
           </div>
-          <form onSubmit={loginUser} className="mt-8 space-y-5">
+          <form className="mt-8 space-y-5">
             <div>
               <label className="font-medium">Email</label>
               <input
                 type="email"
                 required
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 className="w-full mt-2 px-3 py-2 text-gray-100 bg-transparent outline-none border focus:border-primary shadow-sm rounded-lg"
               />
             </div>
@@ -46,11 +79,18 @@ function Login() {
               <input
                 type="password"
                 required
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 placeholder="Must have 8 characters"
                 className="w-full mt-2 px-3 py-2 text-gray-100 bg-transparent outline-none border focus:border-primary shadow-sm rounded-lg"
               />
             </div>
-            <button className="w-full px-4 py-2 text-white font-medium bg-primary hover:bg-primary active:bg-primary rounded-lg duration-150">
+            <button
+              className="w-full px-4 py-2 text-white font-medium bg-primary hover:bg-primary active:bg-primary rounded-lg duration-150"
+              onClick={loginUser}
+            >
               Sign in
             </button>
             <div className="text-center">
